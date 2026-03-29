@@ -1,0 +1,189 @@
+/* style.css */
+
+/* 1. 添加 viewport 元标签 (重要!) */
+/* 这个标签必须在 HTML 的 <head> 部分，确保浏览器按设备宽度渲染 */
+/* <meta name="viewport" content="width=device-width, initial-scale=1.0"> */
+
+
+/* 2. 基础桌面端样式 */
+body {
+    background-color: #0a0a0a;
+    color: #00ff00; /* 主要文字颜色 */
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    padding: 50px 20px; /* 增加左右内边距，防止文字贴边 */
+    margin: 0; /* 清除默认边距 */
+}
+
+#terminal {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+/* 为 "信" 字设置特殊的颜色和样式 */
+#xi-char {
+    color: #00dc00ec; /* 设置为偏深绿色 */
+    display: inline-block; /* 确保它是块级元素，可以控制其大小和对齐 */
+    vertical-align: middle; /* 垂直居中对齐 */
+    transform: translateY(-5px); /* 微调位置，向上移动5像素 */
+}
+
+/* 移除空规则集，避免 VS Code 警告 */
+#title {
+    font-size: 2em; /* 设置标题大小 */
+}
+
+/* 修复数字按钮框的问题 */
+#decrypt-area {
+    white-space: nowrap;
+    overflow-x: auto;
+    padding: 10px 0;
+    display: flex; /* 使用 flex 布局，确保按钮对齐 */
+    justify-content: center; /* 水平居中 */
+    gap: 10px; /* 设置按钮之间的间距 */
+    /* 在小屏幕上，允许换行 */
+    flex-wrap: wrap;
+}
+
+.clue {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    margin: 3px;
+    background-color: #111;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 16px;
+    /* 在小屏幕上，确保按钮足够大，易于点击 */
+    min-width: 40px;
+    min-height: 40px;
+    line-height: 40px;
+}
+
+.clue:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+#secret-clue-area {
+    margin-top: 10px;
+}
+
+.clue-img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+#toggle-x-btn {
+    background-color: #111;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+    padding: 2px 8px;
+    font-family: inherit;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+#toggle-x-btn:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.rainbow-text span {
+    transition: color 0.5s ease-in-out;
+}
+
+
+/* 3. 响应式设计 - 针对中等和小屏幕设备 */
+@media screen and (max-width: 768px) {
+    /* 调整整体页面内边距 */
+    body {
+        padding: 20px 10px; /* 减小内边距 */
+        font-size: 14px; /* 可选：稍微调整基础字体大小 */
+    }
+
+    /* 调整终端容器的内边距 */
+    #terminal {
+        padding: 15px; /* 减小内边距 */
+        margin: 10px; /* 确保容器不会贴边 */
+    }
+
+    /* 调整标题大小 */
+    #title {
+        font-size: 1.8em; /* 在中等屏幕上稍小 */
+    }
+
+    /* 调整提示文字大小和边距 */
+    #terminal p {
+        font-size: 14px; /* 确保文字在小屏幕上可读 */
+        margin: 10px 0; /* 调整段落间距 */
+    }
+
+    /* 调整按钮大小，使其在小屏幕上更大更易点击 */
+    .clue {
+        width: 40px;   /* 增大按钮宽度 */
+        height: 40px;  /* 增大按钮高度 */
+        line-height: 40px; /* 调整行高 */
+        font-size: 18px; /* 增大按钮文字 */
+    }
+
+    /* 调整线索区域的边距 */
+    #secret-clue-area {
+        margin-top: 15px;
+    }
+
+    /* 调整按钮大小 */
+    #toggle-x-btn {
+        font-size: 13px; /* 在小屏幕上调整按钮文字大小 */
+        padding: 4px 10px; /* 调整按钮内边距 */
+    }
+}
+
+/* 4. 针对非常小的屏幕 (如旧款手机) */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px 5px; /* 进一步减小内边距 */
+        font-size: 12px; /* 可选：进一步调整基础字体大小 */
+    }
+
+    #terminal {
+        padding: 10px; /* 进一步减小内边距 */
+    }
+
+    #title {
+        font-size: 1.5em; /* 在小屏幕上更小 */
+    }
+
+    #terminal p {
+        font-size: 13px; /* 确保文字在小屏幕上可读 */
+    }
+
+    .clue {
+        width: 35px;   /* 可以适当减小按钮宽度以适应屏幕 */
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px; /* 保持文字大小 */
+        margin: 2px; /* 减小按钮间距 */
+    }
+
+    #toggle-x-btn {
+        font-size: 12px; /* 在小屏幕上调整按钮文字大小 */
+        padding: 3px 8px; /* 调整按钮内边距 */
+    }
+
+    /* 确保按钮区域在极小屏幕上也能滚动 */
+    #decrypt-area {
+        gap: 5px; /* 减小按钮间距 */
+    }
+}

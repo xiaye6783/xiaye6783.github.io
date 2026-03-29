@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 关键：添加 viewport 元标签以实现响应式设计 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绝密文件解密终端</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="terminal">
+        <h1 id="title">系统<span id="xi-char">信</span>息</h1>
+        <p>文件ID: <span id="file-id-text">XXTXEXXCXXXHXNXXXOPXXXXOXXXLXXXIXXXSXXXX</span></p>
+        <p>状态: <span id="status">等待解密...</span></p>
+        
+        <div id="decrypt-area">
+            <span class="clue" data-value="0">0</span>
+            <span class="clue" data-value="1">1</span>
+            <span class="clue" data-value="2">2</span>
+            <span class="clue" data-value="3">3</span>
+            <span class="clue" data-value="4">4</span>
+            <span class="clue" data-value="5">5</span>
+            <span class="clue" data-value="6">6</span>
+            <span class="clue" data-value="7">7</span>
+            <span class="clue" data-value="8">8</span>
+            <span class="clue" data-value="9">9</span>
+        </div>
+        <div id="secret-clue-area">
+            <img src="icon.png" alt="线索" class="clue-img" data-value="secret_click">
+        </div>
+        <p>提示: 按照正确顺序点击数字，或找出隐藏的秘密... <button id="toggle-x-btn">去掉X</button></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

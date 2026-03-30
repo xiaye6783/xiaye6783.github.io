@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>SBGA HDD Download ｜ Frutiger Aero</title>
+    <style>
+        /* --- 核心：Frutiger Aero 背景 (天空、极光、自然) --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            /* 经典的 Vista 风格蓝绿放射性渐变 */
+            background: #0b5ea1;
+            background: radial-gradient(circle at 50% -20%, #76d0ed 0%, #1c8cc9 30%, #023861 70%, #001a30 100%);
+            background-attachment: fixed;
+            /* 字体必须是 Tahoma，字号要小，模拟当时的显示效果 */
+            font-family: Tahoma, Verdana, Arial, sans-serif;
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* --- CSS 手绘：全局水滴/泡泡装饰 --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 10%; left: 5%; width: 150px; height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            box-shadow: inset 10px 10px 20px rgba(255,255,255,0.2), inset -10px -10px 30px rgba(0,0,0,0.1), 0 0 50px rgba(255,255,255,0.1);
+            z-index: -1;
+        }
+
+        /* --- 顶部标题栏：极致高光塑料质感 --- */
+        .aero-header {
+            /* 极其复杂的渐变：上半部分高光，下半部分深色，模拟反光 */
+            background: linear-gradient(180deg, 
+                #ffffff 0%, 
+                #f0f9ff 48%, 
+                #bedef4 50%, 
+                #98c6e8 80%, 
+                #b5d9f0 100%);
+            height: 60px;
+            border-bottom: 2px solid #5588aa;
+            /* 强烈的投影和内发光 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), inset 0 1px 0 #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .aero-header h1 {
+            margin: 0;
+            font-family: "Trebuchet MS", sans-serif;
+            font-size: 24px;
+            color: #003366;
+            /* 英文字体的玻璃反光文字效果 */
+            text-shadow: 1px 1px 0px #fff, 0 0 10px rgba(11, 83, 148, 0.5);
+            font-weight: bold;
+        }
+
+        /* --- 主容器：固定宽度 800px (IE7时代的经典尺寸) --- */
+        .container {
+            width: 800px;
+            margin: 30px auto;
+            /* 极其夸张的磨砂玻璃/塑料面板 */
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.6) 25%, 
+                rgba(255, 255, 255, 0.9) 100%);
+            border: 2px solid #55aaff;
+            border-radius: 10px; /* 那个年代圆角不用太大 */
+            padding: 20px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5), inset 0 0 1px 1px #fff, inset 0 0 10px 10px rgba(255,255,255,0.2);
+            /* 去除了 backdrop-filter 以确保兼容性，完全用渐变模拟玻璃 */
+        }
+
+        .window-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #1a5688;
+            /* 经典的 Windows Title Bar 蓝色渐变 */
+            background: linear-gradient(180deg, #cce0ff 0%, #b3ccff 49%, #80aaff 50%, #b3ccff 100%);
+            border: 1px solid #7799cc;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin-bottom: 15px;
+            box-shadow: inset 0 1px 0 #fff;
+            text-shadow: 1px 1px 0px #fff;
+        }
+
+        /* --- 下载项目列表：完全排除了扁平风格 --- */
+        .download-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .download-item {
+            display: flex;
+            align-items: center;
+            background: #fdfdfd;
+            border: 1px solid #cccccc;
+            margin-bottom: 8px;
+            padding: 10px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1), inset 0 1px 0 #fff;
+            position: relative;
+        }
+
+        .download-item:hover {
+            border-color: #99bbdd;
+            /* 鼠标悬停时的蓝色经典淡蓝高光效果 */
+            background: linear-gradient(180deg, #eef6ff 0%, #cce0ff 49%, #b3ccff 50%, #eef6ff 100%);
+            z-index: 1; /* 确保悬停时边框置顶 */
+        }
+
+        /* --- CSS 手绘：极致拟物化图标 (Skeuomorphic Icons) --- */
+        .file-icon {
+            width: 48px;
+            height: 48px;
+            margin-right: 15px;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 1px 0 #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 磁盘图标 (Save) - 完全使用 CSS 手绘 */
+        .file-icon-disk::after {
+            content: "";
+            position: absolute;
+            top: 5px; left: 5px; width: 36px; height: 36px;
+            background: #003366;
+            background: linear-gradient(180deg, #3366cc 0%, #001a33 100%);
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        /* 磁盘上的白色区域 */
+        .file-icon-disk::before {
+            content: "";
+            position: absolute;
+            bottom: 5px; left: 8px; width: 30px; height: 12px;
+            background: #f0f0f0;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        /* 文件夹图标 - 完全使用 CSS 手绘 */
+        .file-icon-folder {
+            background: #ffd966;
+            background: linear-gradient(180deg, #ffd966 0%, #ff8c00 100%);
+            border-color: #ff8c00;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.5);
+        }
+
+        /* 极致果冻图标 (例如软件图标) - 完全使用 CSS 手绘 */
+        .file-icon-jelly {
+            background: #fff;
+            border-radius: 50%; /* 圆形果冻泡泡 */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 1px 0 #fff;
+        }
+
+        .file-icon-jelly::after {
+            content: "";
+            position: absolute;
+            top: 2px; left: 5px; width: 36px; height: 36px;
+            background: #fff;
+            border-radius: 50%;
+            /* 极致高光：制造水滴感 */
+            background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.1) 70%, rgba(255,255,255,0.5) 100%);
+            filter: blur(1px);
+        }
+
+        /* 文件文本部分 */
+        .item-text {
+            flex-grow: 1;
+        }
+
+        .item-text h2 {
+            margin: 0 0 3px 0;
+            font-size: 13px;
+            font-weight: bold;
+            color: #003399;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .item-text p {
+            margin: 0;
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* --- 极致胶囊型果冻按钮 (The Orb Button) --- */
+        .aero-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 8px 25px;
+            border-radius: 30px; /* 极致胶囊形状 */
+            
+            /* 极致复杂的渐变：上半部分强烈高光，下半部分深色截断 */
+            background: linear-gradient(180deg, 
+                #a8d5ff 0%, 
+                #76d0ed 30%, 
+                #1c8cc9 49%, 
+                #0055aa 50%, 
+                #003366 100%);
+            border: 2px solid #001a33;
+            /* 强烈的投影和内发光（制造 bevel 效果） */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.5), inset 0 2px 2px rgba(255,255,255,0.8), inset 0 -2px 2px rgba(0,0,0,0.2);
+            text-shadow: 0 -1px 1px rgba(0,0,0,0.6); /* 英文字体阴影 */
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            position: relative;
+        }
+
+        .aero-button:hover {
+            transform: scale(1.03); /* 鼠标悬停时的放大效果 */
+            background: linear-gradient(180deg, 
+                #cce0ff 0%, 
+                #ade1f3 30%, 
+                #268bf0 49%, 
+                #0077ee 50%, 
+                #0055aa 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6), inset 0 2px 2px rgba(255,255,255,0.9);
+            color: #ffffcc;
+        }
+
+        .aero-button:active {
+            transform: translateY(2px);
+            background: linear-gradient(180deg, #001a33 0%, #003366 30%, #1c8cc9 50%, #76d0ed 100%);
+            box-shadow: inset 0 3px 5px rgba(0,0,0,0.8);
+        }
+
+        /* --- 底部版权信息 --- */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-bottom: 30px;
+            font-size: 11px;
+            color: #b5d9f0;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+        }
+        
+        .footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="aero-header">
+        <h1>SBGA HDD <span style="font-size:10px; color:#ff6600; font-style:italic;">DOWNLOAD</span></h1>
+    </div>
+
+    <div class="container">
+        <div class="window-title">📂 Latest Releases</div>
+
+        <ul class="download-list">
+            <li class="download-item">
+                <div class="file-icon file-icon-disk"></div> <div class="item-text">
+                    <h2>maimai CIRCLE PLUS 1.65.app</h2>
+                    <p>大小: 68 GB | 格式: .app</p>
+                </div>
+                <a href="#" class="aero-button">DownLoad</a>
+            </li>
+
+            <li class="download-item">
+                <div class="file-icon file-icon-disk"></div> <div class="item-text">
+                    <h2>敬请期待...</h2>
+                    <p>大小: ?? GB | 格式: .???</p>
+                </div>
+                <a href="#" class="aero-button">敬请期待</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        Powered by Web 2.0 &copy; 2007 <br>
+        最佳分辨率: 1920x1080. 建议使用 <a href="https://www.google.com/intl/zh-CN/chrome/">Google Chrome</a> 或 <a href="https://www.microsoft.com/zh-cn/edge/download">Microsoft Edge</a> 浏览。
+    </div>
+
+</body>
+</html>

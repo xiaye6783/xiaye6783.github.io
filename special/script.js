@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 配置区域 ---
     const correctSequence = ['2', '0', '8', '5'];
     const secretClickTarget = 'secret_click';
-    const secretClickCount = 5;
+    const secretClickCount = 999;
     const DOWNLOAD_URL = 'YOUR_ACTUAL_DOWNLOAD_LINK_HERE';
     // --- 配置结束 ---
 

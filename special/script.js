@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const correctSequence = ['2', '0', '8', '5'];
     const secretClickTarget = 'secret_click';
     const secretClickCount = 999;
-    const DOWNLOAD_URL = 'YOUR_ACTUAL_DOWNLOAD_LINK_HERE';
+    const DOWNLOAD_URL = 'https://xiaye6783.github.io/special/mXzQwErTyUiOpAsDfGhJkL.zip';
     // --- 配置结束 ---
 
     let currentSequence = [];
